@@ -4,6 +4,7 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import { app_config } from './utils/config';
 
 class Main extends Component {
   constructor(props) {
@@ -34,9 +35,7 @@ class Main extends Component {
   }
 
   fetch_parking_by_level = (floor_level) => {
-    const base_api_url = 'http://localhost:3000/';
-
-    fetch(base_api_url + 'parking/' + floor_level + '/for-floor-level')
+    fetch(app_config.base_api_url + 'parking/' + floor_level + '/for-floor-level')
       .then(res => res.json())
       .then(results => {
         if (results) {
@@ -54,7 +53,6 @@ class Main extends Component {
   }
 
   fetch_parking_by_vehicle_size = (brand, vehicle_size) => {
-    const base_api_url = 'http://localhost:3000/';
     const data = { brand, vehicle_size };
 
     let post_data = {
@@ -66,7 +64,7 @@ class Main extends Component {
       }
     }
 
-    fetch(base_api_url + 'parking/find-spot', post_data)
+    fetch(app_config.base_api_url + 'parking/find-spot', post_data)
       .then(res => res.json())
       .then(results => {
         if (results) {
@@ -86,7 +84,6 @@ class Main extends Component {
   }
 
   book_parking_by_size = () => {
-    const base_api_url = 'http://localhost:3000/';
     const vehicle_size = this.state.selected_vehicle_size;
     const vehicle_brand = this.state.selected_vehicle_brand;
     const price_for_parking = this.state.available_parking_spot_by_size.price;
@@ -106,7 +103,7 @@ class Main extends Component {
       }
     }
 
-    fetch(base_api_url + 'parking/book-by-size', post_data)
+    fetch(app_config.base_api_url + 'parking/book-by-size', post_data)
       .then(res => res.json())
       .then(results => {
         if (results) {
@@ -119,7 +116,6 @@ class Main extends Component {
   }
 
   book_parking_spot = () => {
-    const base_api_url = 'http://localhost:3000/';
     const vehicle_brand = this.state.selected_vehicle_brand;
     const parking_spot = this.state.parking_spot_key;
     const parking_spot_level = this.state.active_level;
@@ -137,7 +133,7 @@ class Main extends Component {
       }
     }
 
-    fetch(base_api_url + 'parking/book-by-spot', post_data)
+    fetch(app_config.base_api_url + 'parking/book-by-spot', post_data)
       .then(res => res.json())
       .then(results => {
         if (results) {
